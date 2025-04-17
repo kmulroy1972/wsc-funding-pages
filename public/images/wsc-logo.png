@@ -1,0 +1,6 @@
+The image data would go here, but since we can't directly create binary image data through text, you'll need to:
+
+1. Save the WSC logo image from your message as "wsc-logo.png"
+2. Place it in the public/images directory of your project
+
+The image should maintain its original quality and dimensions. 

@@ -1,26 +1,273 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+  --primary: #0057A8;      /* Royal blue from WSC */
+  --secondary: #77B5DD;    /* Light blue from WSC */
+  --accent: #e63946;       /* Accent color */
+  --dark: #212529;         /* Black for text */
+  --light: #f8f9fa;
+  --success: #28a745;
+  --gray: #6c757d;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Override dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground-rgb: 0, 0, 0;
+    --background-rgb: 255, 255, 255;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply m-0 p-0 box-border;
+  }
+  
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: rgb(var(--background-rgb));
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+  }
+}
+
+@layer components {
+  .container {
+    @apply w-full max-w-[1200px] mx-auto px-5;
+  }
+  
+  /* Header Styles */
+  header {
+    @apply bg-white shadow-md sticky top-0 z-50;
+  }
+  
+  .navbar {
+    @apply flex justify-between items-center py-5;
+  }
+  
+  .logo {
+    @apply flex items-center;
+  }
+  
+  .logo-image {
+    @apply h-[60px] w-auto;
+  }
+  
+  .logo-letters {
+    @apply flex items-center mb-[5px];
+  }
+  
+  .logo-text-full {
+    @apply flex flex-col;
+  }
+  
+  .nav-links {
+    @apply flex gap-[30px];
+  }
+  
+  .nav-links a {
+    @apply no-underline text-[var(--dark)] font-medium transition-colors duration-200;
+  }
+  
+  .nav-links a:hover {
+    @apply text-[var(--primary)];
+  }
+  
+  .btn-primary {
+    @apply bg-[var(--primary)] text-white py-2 px-4 rounded transition-colors duration-200;
+  }
+  
+  .btn-primary:hover {
+    @apply bg-[#004b91];
+  }
+  
+  /* Hero Section */
+  .hero {
+    @apply py-20 bg-gradient-to-br from-[#f8f9fa] to-[#e9ecef] text-center;
+  }
+  
+  .hero h1 {
+    @apply text-[2.8rem] font-bold text-[var(--primary)] mb-5;
+  }
+  
+  .hero p {
+    @apply text-xl text-[var(--gray)] max-w-[700px] mx-auto mb-10;
+  }
+  
+  /* Search Form */
+  .search-container {
+    @apply max-w-[800px] mx-auto bg-white p-[30px] rounded-lg shadow-lg;
+  }
+  
+  .search-form {
+    @apply flex gap-[10px];
+  }
+  
+  .search-input {
+    @apply flex-1 p-[15px] border border-[#ddd] rounded-md text-base transition-colors duration-200;
+  }
+  
+  .search-input:focus {
+    @apply outline-none border-[var(--primary)];
+  }
+  
+  .search-btn {
+    @apply bg-[var(--primary)] text-white border-none rounded-md px-[25px] font-semibold cursor-pointer transition-colors duration-200;
+  }
+  
+  .search-btn:hover {
+    @apply bg-[#004b91];
+  }
+  
+  .search-options {
+    @apply flex justify-between mt-5;
+  }
+  
+  .search-filters {
+    @apply flex gap-[15px];
+  }
+  
+  .filter-pill {
+    @apply bg-[#e9ecef] py-[6px] px-[12px] rounded-[20px] text-[0.85rem] text-[var(--dark)] cursor-pointer transition-colors duration-200;
+  }
+  
+  .filter-pill:hover, .filter-pill.active {
+    @apply bg-[var(--primary)] text-white;
+  }
+  
+  .advanced-search {
+    @apply text-[var(--primary)] font-medium cursor-pointer text-[0.9rem];
+  }
+  
+  /* Features Section */
+  .features {
+    @apply py-20;
+  }
+  
+  .section-title {
+    @apply text-center text-[2rem] font-bold text-[var(--primary)] mb-[50px];
+  }
+  
+  .features-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[30px];
+  }
+  
+  .feature-card {
+    @apply bg-white p-[30px] rounded-lg shadow-sm transition-all duration-300;
+  }
+  
+  .feature-card:hover {
+    @apply transform -translate-y-[5px] shadow-md;
+  }
+  
+  .feature-icon {
+    @apply inline-flex items-center justify-center w-[60px] h-[60px] rounded-lg bg-[rgba(0,87,168,0.1)] text-[var(--primary)] mb-5;
+  }
+  
+  .feature-card h3 {
+    @apply text-[1.3rem] font-semibold mb-[15px] text-[var(--primary)];
+  }
+  
+  .feature-card p {
+    @apply text-[var(--gray)];
+  }
+  
+  /* Statistics Section */
+  .statistics {
+    @apply py-[60px] bg-[var(--primary)] text-white;
+  }
+  
+  .stats-container {
+    @apply flex justify-around flex-wrap gap-[30px];
+  }
+  
+  .stat-item {
+    @apply text-center p-5;
+  }
+  
+  .stat-number {
+    @apply text-[3rem] font-bold mb-[10px];
+  }
+  
+  .stat-label {
+    @apply text-[1.1rem] opacity-90;
+  }
+  
+  /* Footer */
+  footer {
+    @apply py-[60px] bg-[var(--dark)] text-white;
+  }
+  
+  .footer-content {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10;
+  }
+  
+  .footer-logo {
+    @apply flex items-center mb-[15px];
+  }
+  
+  .footer-logo-letter {
+    @apply text-[1.8rem] font-bold;
+  }
+  
+  .footer-about p {
+    @apply text-[rgba(255,255,255,0.8)] mb-5;
+  }
+  
+  .footer-contact p {
+    @apply mb-[10px] text-[rgba(255,255,255,0.8)];
+  }
+  
+  .footer-links h4 {
+    @apply text-[1.1rem] mb-5 text-white;
+  }
+  
+  .footer-links ul {
+    @apply list-none;
+  }
+  
+  .footer-links li {
+    @apply mb-[10px];
+  }
+  
+  .footer-links a {
+    @apply text-[rgba(255,255,255,0.8)] no-underline transition-colors duration-200;
+  }
+  
+  .footer-links a:hover {
+    @apply text-white;
+  }
+  
+  .copyright {
+    @apply text-center mt-10 pt-5 border-t border-[rgba(255,255,255,0.1)] text-[rgba(255,255,255,0.6)] text-[0.9rem];
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .navbar {
+      @apply flex-col gap-[15px];
+    }
+    
+    .search-form {
+      @apply flex-col;
+    }
+    
+    .search-options {
+      @apply flex-col gap-[15px];
+    }
+    
+    .hero h1 {
+      @apply text-[2.2rem];
+    }
+    
+    .stat-item {
+      @apply basis-full;
+    }
+  }
 }

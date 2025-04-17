@@ -1,0 +1,24 @@
+import { createClient } from '@vercel/postgres';
+
+console.log('Initializing database pool...');
+
+const connectionString = process.env.POSTGRES_URL_NON_POOLING;
+console.log('Using connection string:', connectionString?.split('@')[1]); // Log only the host part for security
+
+export const db = createClient({
+  connectionString: process.env.POSTGRES_URL_NON_POOLING,
+  ssl: {
+    rejectUnauthorized: false,
+    protocol: 'TLSv1.3'
+  }
+});
+
+// Test the connection on startup
+db.connect()
+  .then(client => {
+    console.log('Database connection successful');
+    client.release();
+  })
+  .catch(err => {
+    console.error('Initial connection failed:', err.message);
+  }); 
